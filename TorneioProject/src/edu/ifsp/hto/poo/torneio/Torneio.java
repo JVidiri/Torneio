@@ -1,13 +1,14 @@
 package edu.ifsp.hto.poo.torneio;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
 public class Torneio {
 
-	List<Jogador> jogadores;
-	List<Rodada> rodadas;
+	private List<Jogador> jogadores;
+	private List<Rodada> rodadas;
 
 	public Torneio() {
 		jogadores = new ArrayList<Jogador>();
@@ -49,6 +50,11 @@ public class Torneio {
 
 	public void addRodada(Rodada rodada) {
 		rodadas.add(rodada);
+	}
+
+	public List<Jogador> iniciarRodada() {
+		List<Jogador> campoes = new ArrayList<Jogador>();
+		return campoes;
 	}
 
 }
