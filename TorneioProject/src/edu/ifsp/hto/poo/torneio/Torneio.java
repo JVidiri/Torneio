@@ -2,11 +2,17 @@ package edu.ifsp.hto.poo.torneio;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
 public class Torneio {
 
 	List<Jogador> jogadores;
 	List<Rodada> rodadas;
+
+	public Torneio() {
+		jogadores = new ArrayList<Jogador>();
+		rodadas = new ArrayList<Rodada>();
+	}
 
 	public boolean adicionarJogador(Jogador jogador) {
 		if (jogadores == null) {
@@ -20,22 +26,29 @@ public class Torneio {
 	}
 
 	public boolean cadastrarJogador() {
-		Jogador jogador = null;
-
+		Jogador jogador = new Jogador();
+		Scanner sc = new Scanner(System.in);
+		jogador.setNome(sc.nextLine());
+		jogador.setCpf(sc.nextLine());
+		jogador.setEndereco(sc.nextLine());
+		jogador.setTelefone(sc.nextLine());
 		return adicionarJogador(jogador);
 	}
 
-	/**
-	 * Cria as partidas a partir dos jogadores cadastrados
-	 */
-	public void sortearJogadores() {
-		if (jogadores.size() < 16) {
-			// TODO Não iniciar o torneio
-		}
-	}
-	
 	public static void main(String[] args) {
-		
+
+	}
+
+	public int getNumJogadores() {
+		return jogadores.size();
+	}
+
+	public List<Jogador> getJogadores() {
+		return jogadores;
+	}
+
+	public void addRodada(Rodada rodada) {
+		rodadas.add(rodada);
 	}
 
 }

@@ -20,11 +20,11 @@ public class Jogador {
 		this.nome = nome;
 	}
 
-	public Endereco getEndereco() {
+	public String getEndereco() {
 		return endereco;
 	}
 
-	public void setEndereco(Endereco endereco) {
+	public void setEndereco(String endereco) {
 		this.endereco = endereco;
 	}
 
@@ -37,7 +37,20 @@ public class Jogador {
 	}
 
 	private String nome;
-	private Endereco endereco;
+	private String endereco;
 	private String telefone;
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj != null && obj instanceof Jogador) {
+			Jogador jogador = (Jogador) obj;
+			if (jogador.getCpf().equals(getCpf())) {
+				if (jogador.getNome().equals(getNome())) {
+					 
+				}
+			}
+		}
+		return super.equals(obj);
+	}
 
 }
