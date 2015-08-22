@@ -9,6 +9,13 @@ public class Torneio {
 
 	private List<Jogador> jogadores;
 	private List<Rodada> rodadas;
+	private int rodada_atual = 0;
+	private Jogador campeao;
+	private boolean estaFinalizado = false;
+
+	public int getRodadaAtual() {
+		return rodada_atual;
+	}
 
 	public Torneio() {
 		jogadores = new ArrayList<Jogador>();
@@ -28,10 +35,15 @@ public class Torneio {
 
 	public boolean cadastrarJogador() {
 		Jogador jogador = new Jogador();
+		System.out.println("Cadastrar novo Jogador: ");
 		Scanner sc = new Scanner(System.in);
+		System.out.print("Nome: ");
 		jogador.setNome(sc.nextLine());
+		System.out.print("CPF: ");
 		jogador.setCpf(sc.nextLine());
+		System.out.print("Endereco: ");
 		jogador.setEndereco(sc.nextLine());
+		System.out.print("Telefone: ");
 		jogador.setTelefone(sc.nextLine());
 		return adicionarJogador(jogador);
 	}
@@ -49,12 +61,36 @@ public class Torneio {
 	}
 
 	public void addRodada(Rodada rodada) {
-		rodadas.add(rodada);
+		if (!estaFinalizado) {
+			rodadas.add(rodada);
+		}
 	}
 
 	public List<Jogador> iniciarRodada() {
-		List<Jogador> campoes = new ArrayList<Jogador>();
-		return campoes;
+		List<Jogador> vencedores = new ArrayList<Jogador>();
+		Rodada rodadaAtualObj = rodadas.get(rodada_atual);
+		rodadaAtualObj.iniciarPartidasDaRodada();
+		vencedores = rodadaAtualObj.getVencedoresDaRodada();
+		System.out.println("Rodada " + (rodada_atual + 1) + " finalizada.");
+		if (vencedores.size() == 1) {
+			campeao = vencedores.get(0);
+			setFinished();
+		} else {
+			rodada_atual++;
+		}
+		return vencedores;
+	}
+
+	private void setFinished() {
+		estaFinalizado = true;
+	}
+
+	public boolean hasProximaRodada() {
+		return !estaFinalizado;
+	}
+
+	public Jogador getCampeao() {
+		return campeao;
 	}
 
 }

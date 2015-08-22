@@ -42,15 +42,22 @@ public class Jogador {
 
 	@Override
 	public boolean equals(Object obj) {
+		if (obj != null && ((Jogador) obj == this)) {
+			return true;
+		}
 		if (obj != null && obj instanceof Jogador) {
 			Jogador jogador = (Jogador) obj;
 			if (jogador.getCpf().equals(getCpf())) {
 				if (jogador.getNome().equals(getNome())) {
-					 
+					if (jogador.getEndereco().equals(getEndereco())) {
+						if (jogador.getTelefone().equals(getTelefone())) {
+							return true;
+						}
+					}
 				}
 			}
 		}
-		return super.equals(obj);
+		return false;
 	}
 
 }
