@@ -7,11 +7,20 @@ import java.util.Random;
 
 public class GerenciadorTorneio {
 
-	public static final int MAX_JOGADORES_TORNEIO = 16;
+	public static final int MAX_JOGADORES_TORNEIO = 4;// FIXME
 
 	Torneio torneio;
 
-	Rodada gerarRodada(List<Jogador> vencedores) {
+	public GerenciadorTorneio() {
+		torneio = new Torneio();
+	}
+
+	public void gerarRodadaDosVencedoresAnteriores() {
+		torneio.addRodada(gerarRodada(getRodadaAtual().getVencedoresDaRodada()));
+		torneio.finalizarRodada();
+	}
+
+	public Rodada gerarRodada(List<Jogador> vencedores) {
 		System.out.println("Gerando rodada");
 		Rodada rodada = new Rodada();
 		for (int indexJogador = 0; indexJogador < vencedores.size(); indexJogador++) {
@@ -24,9 +33,21 @@ public class GerenciadorTorneio {
 		return rodada;
 	}
 
+	public void finalizarRodadaAtual() {
+		torneio.finalizarRodada();
+	}
+
 	Partida gerarPartida(Jogador a, Jogador b) {
 		return new Partida(a, b);
 
+	}
+
+	public Rodada getRodadaAtual() {
+		return torneio.getRodadaAtual();
+	}
+
+	public int getNumRodadaAtual() {
+		return torneio.getNumRodadaAtual();
 	}
 
 	private Rodada sortearJogadores() {
@@ -41,29 +62,41 @@ public class GerenciadorTorneio {
 			rodada.addPartida(partida);
 		}
 		return rodada;
-
 	}
 
-	void iniciarTorneio() {
-		torneio = new Torneio();
-		while (torneio.getNumJogadores() < MAX_JOGADORES_TORNEIO) {
-			torneio.cadastrarJogador();
-		}
-		torneio.addRodada(sortearJogadores());
-		do {
-			List<Jogador> vencedores = torneio.iniciarRodada();
-			if (vencedores.size() < 2) {
-				break;
-			}
-			torneio.addRodada(gerarRodada(vencedores));
-		} while (torneio.hasProximaRodada());
-		System.out.println("O campeão foi: " + torneio.getCampeao().getNome());
+	public void cadastrarJogadorNoTorneio(Jogador jogador) {
+		torneio.adicionarJogador(jogador);
+	}
 
+	public void iniciarTorneio() {
+		// while (torneio.getNumJogadores() < MAX_JOGADORES_TORNEIO) {
+		// torneio.cadastrarJogador();
+		// }
+		torneio.addRodada(sortearJogadores());
+		// do {
+		// List<Jogador> vencedores = torneio.iniciarRodada();
+		// if (vencedores.size() < 2) {
+		// break;
+		// }
+		// torneio.addRodada(gerarRodada(vencedores));
+		// } while (torneio.hasProximaRodada());
 	}
 
 	public static void main(String[] args) {
 		GerenciadorTorneio gerenciador = new GerenciadorTorneio();
 		gerenciador.iniciarTorneio();
+	}
+
+	public boolean torneioEstaCheio() {
+		return (torneio.getNumJogadores() == MAX_JOGADORES_TORNEIO);
+	}
+
+	public int getNumJogadoresAtual() {
+		return torneio.getNumJogadores();
+	}
+
+	public int getQtdMaxJogadores() {
+		return MAX_JOGADORES_TORNEIO;
 	}
 
 }

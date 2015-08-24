@@ -14,16 +14,26 @@ public class Partida {
 	}
 
 	public void definirVencedor(Jogador jogador) {
-		if (jogador != null && (jogador.equals(jogador1) || jogador.equals(jogador2))) {
+		if (jogador != null
+				&& (jogador.equals(jogador1) || jogador.equals(jogador2))) {
 			vencedor = jogador;
 		} else {
 			System.out.println("Jogador não é válido para esta partida!");
 		}
 	}
 
+	public Jogador getJogadorUm() {
+		return jogador1;
+	}
+
+	public Jogador getJogadorDois() {
+		return jogador2;
+	}
+
 	public void definirVencedor() {
 		Scanner sc = new Scanner(System.in);
-		System.out.println(String.format("O vencedor foi  1- %s ou 2- %s ?", jogador1.getNome(), jogador2.getNome()));
+		System.out.println(String.format("O vencedor foi  1- %s ou 2- %s ?",
+				jogador1.getNome(), jogador2.getNome()));
 		int numVencedor;
 		while (true) {
 			String respota = sc.nextLine();
@@ -32,7 +42,8 @@ public class Partida {
 				if (numVencedor == 1 || numVencedor == 2) {
 					break;
 				} else {
-					System.out.println("Valores inválidos, digite um valor válido!");
+					System.out
+							.println("Valores inválidos, digite um valor válido!");
 					continue;
 				}
 			} catch (NumberFormatException e) {

@@ -13,8 +13,12 @@ public class Torneio {
 	private Jogador campeao;
 	private boolean estaFinalizado = false;
 
-	public int getRodadaAtual() {
+	public int getNumRodadaAtual() {
 		return rodada_atual;
+	}
+
+	public Rodada getRodadaAtual() {
+		return rodadas.get(rodada_atual);
 	}
 
 	public Torneio() {
@@ -76,7 +80,7 @@ public class Torneio {
 			campeao = vencedores.get(0);
 			setFinished();
 		} else {
-			rodada_atual++;
+			finalizarRodada();
 		}
 		return vencedores;
 	}
@@ -91,6 +95,10 @@ public class Torneio {
 
 	public Jogador getCampeao() {
 		return campeao;
+	}
+
+	public void finalizarRodada() {
+		rodada_atual++;
 	}
 
 }
