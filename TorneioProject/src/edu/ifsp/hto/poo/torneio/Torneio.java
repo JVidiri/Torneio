@@ -89,6 +89,11 @@ public class Torneio {
 		estaFinalizado = true;
 	}
 
+	public void setCampeao(Jogador jogador) {
+		this.campeao = jogador;
+		setFinished();
+	}
+
 	public boolean hasProximaRodada() {
 		return !estaFinalizado;
 	}

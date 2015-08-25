@@ -7,7 +7,7 @@ import java.util.Random;
 
 public class GerenciadorTorneio {
 
-	public static final int MAX_JOGADORES_TORNEIO = 4;// FIXME
+	public static final int MAX_JOGADORES_TORNEIO = 16;// FIXME
 
 	Torneio torneio;
 
@@ -16,8 +16,18 @@ public class GerenciadorTorneio {
 	}
 
 	public void gerarRodadaDosVencedoresAnteriores() {
-		torneio.addRodada(gerarRodada(getRodadaAtual().getVencedoresDaRodada()));
+		List<Jogador> jogadoresProxRodada = getRodadaAtual()
+				.getVencedoresDaRodada();
+		if (jogadoresProxRodada.size() > 1) {
+			torneio.addRodada(gerarRodada(jogadoresProxRodada));
+		} else {
+			torneio.setCampeao(jogadoresProxRodada.get(0));
+		}
 		torneio.finalizarRodada();
+	}
+
+	public Jogador getCapeaoTorneio() {
+		return torneio.getCampeao();
 	}
 
 	public Rodada gerarRodada(List<Jogador> vencedores) {
@@ -97,6 +107,10 @@ public class GerenciadorTorneio {
 
 	public int getQtdMaxJogadores() {
 		return MAX_JOGADORES_TORNEIO;
+	}
+
+	public boolean torneioFinalizou() {
+		return torneio.getCampeao() != null;
 	}
 
 }

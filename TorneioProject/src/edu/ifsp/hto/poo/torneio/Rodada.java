@@ -29,11 +29,14 @@ public class Rodada {
 		for (Iterator<Partida> i = partidas.iterator(); i.hasNext();) {
 			Partida partidaAtual = (Partida) i.next();
 			partidaAtual.definirVencedor();
-			vencedores.add(partidaAtual.getVencedor());
 		}
 	}
 
 	public List<Jogador> getVencedoresDaRodada() {
+		for (Iterator<Partida> i = partidas.iterator(); i.hasNext();) {
+			Partida partidaAtual = (Partida) i.next();
+			vencedores.add(partidaAtual.getVencedor());
+		}
 		return vencedores;
 	}
 

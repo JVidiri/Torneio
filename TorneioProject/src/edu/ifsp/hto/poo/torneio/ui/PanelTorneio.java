@@ -20,6 +20,7 @@ public class PanelTorneio extends JPanel {
 	JFrame mainFrame;
 	Iterator<Partida> p;
 	PartidaPanel panelPartida;
+	JLabel selecionarVencedorLabel;
 
 	JLabel rodadaLabel;
 
@@ -34,7 +35,7 @@ public class PanelTorneio extends JPanel {
 		rodadaLabel.setBackground(Color.BLACK);
 		rodadaLabel.setFont(new Font(rodadaLabel.getFont().getName(),
 				Font.PLAIN, 100));
-		JLabel selecionarVencedorLabel = new JLabel("Selecione o Vencedor",
+		selecionarVencedorLabel = new JLabel("Selecione o Vencedor",
 				SwingConstants.CENTER);
 		selecionarVencedorLabel.setBackground(Color.BLACK);
 		selecionarVencedorLabel.setFont(new Font(rodadaLabel.getFont()
@@ -64,9 +65,17 @@ public class PanelTorneio extends JPanel {
 			panelPartida.setPartidaAtual(partida);
 		} else {
 			gerenTorneio.gerarRodadaDosVencedoresAnteriores();
-			p = gerenTorneio.getRodadaAtual().getPartidas().iterator();
-			rodadaLabel.setText("Rodada " + gerenTorneio.getNumRodadaAtual());
-			updatePartidaAtual();
+			if (gerenTorneio.torneioFinalizou()) {
+				panelPartida.setVisible(false);
+				rodadaLabel.setText("Torneio finalizado!");
+				selecionarVencedorLabel.setText("O campeão foi "
+						+ gerenTorneio.getCapeaoTorneio().getNome());
+			} else {
+				p = gerenTorneio.getRodadaAtual().getPartidas().iterator();
+				rodadaLabel.setText("Rodada " + gerenTorneio.getNumRodadaAtual());
+				updatePartidaAtual();
+			}
+
 		}
 	}
 
